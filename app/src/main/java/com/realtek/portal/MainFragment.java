@@ -17,20 +17,18 @@ package com.realtek.portal;
 import java.util.Collections;
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
-import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.OnItemViewClickedListener;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 public class MainFragment extends BrowseFragment {
     private static final String TAG = "MainFragment";
@@ -90,16 +88,8 @@ public class MainFragment extends BrowseFragment {
         @Override
         public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item,
                                   RowPresenter.ViewHolder rowViewHolder, Row row) {
-            Movie movie = (Movie) item;
             Log.d(TAG, "Item: " + item.toString());
-            Intent intent = new Intent(getActivity(), DetailActivity.class);
-            intent.putExtra(DetailActivity.MOVIE, movie);
-
-            Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    getActivity(),
-                    ((ImageCardView) itemViewHolder.view).getMainImageView(),
-                    DetailActivity.SHARED_ELEMENT_NAME).toBundle();
-            getActivity().startActivity(intent, bundle);
+            Toast.makeText(getActivity(), "Click Item = " + ((Movie)item).getId(), Toast.LENGTH_SHORT).show();
         }
     }
 }

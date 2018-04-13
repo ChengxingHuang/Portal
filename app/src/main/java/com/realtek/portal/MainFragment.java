@@ -19,7 +19,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v17.leanback.app.BackgroundManager;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.HeaderItem;
@@ -31,7 +30,6 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.util.DisplayMetrics;
 import android.util.Log;
 
 public class MainFragment extends BrowseFragment {
@@ -42,20 +40,14 @@ public class MainFragment extends BrowseFragment {
     private static final int NUM_COLS = 8;
 
     private ArrayObjectAdapter mRowsAdapter;
-    private DisplayMetrics mMetrics;
-    private BackgroundManager mBackgroundManager;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate");
         super.onActivityCreated(savedInstanceState);
 
-        prepareBackgroundManager();
-
-        setupUIElements();
-
+        setTitle(getString(R.string.browse_title));
         loadRows();
-
         setupEventListeners();
     }
 
@@ -78,21 +70,6 @@ public class MainFragment extends BrowseFragment {
         }
 
         setAdapter(mRowsAdapter);
-    }
-
-    private void prepareBackgroundManager() {
-
-        mBackgroundManager = BackgroundManager.getInstance(getActivity());
-        mBackgroundManager.attach(getActivity().getWindow());
-        mMetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
-    }
-
-    private void setupUIElements() {
-        setTitle(getString(R.string.browse_title)); // Badge, when set, takes precedent
-        // over title
-        setHeadersState(HEADERS_ENABLED);
-        setHeadersTransitionOnBackEnabled(true);
     }
 
     private void setupEventListeners() {

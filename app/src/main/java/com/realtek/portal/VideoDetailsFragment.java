@@ -217,7 +217,6 @@ public class VideoDetailsFragment extends DetailsFragment {
                 intent.putExtra(getResources().getString(R.string.should_start), true);
                 startActivity(intent);
 
-
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         getActivity(),
                         ((ImageCardView) itemViewHolder.view).getMainImageView(),

@@ -32,7 +32,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".DetailsActivity"/>
-        <activity android:name=".PlaybackOverlayActivity"/>
     </application>
 
 </manifest>

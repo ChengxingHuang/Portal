@@ -94,11 +94,6 @@ public class VideoDetailsFragment extends DetailsFragment {
         }
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
     private void prepareBackgroundManager() {
         mBackgroundManager = BackgroundManager.getInstance(getActivity());
         mBackgroundManager.attach(getActivity().getWindow());
@@ -174,13 +169,7 @@ public class VideoDetailsFragment extends DetailsFragment {
         detailsPresenter.setOnActionClickedListener(new OnActionClickedListener() {
             @Override
             public void onActionClicked(Action action) {
-                if (action.getId() == ACTION_WATCH_TRAILER) {
-                    Intent intent = new Intent(getActivity(), PlaybackOverlayActivity.class);
-                    intent.putExtra(DetailsActivity.MOVIE, mSelectedMovie);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getActivity(), action.toString(), Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(getActivity(), action.toString(), Toast.LENGTH_SHORT).show();
             }
         });
         mPresenterSelector.addClassPresenter(DetailsOverviewRow.class, detailsPresenter);

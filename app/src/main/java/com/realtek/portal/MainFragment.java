@@ -14,15 +14,11 @@
 
 package com.realtek.portal;
 
-import java.net.URI;
 import java.util.Collections;
 import java.util.List;
-import java.util.Timer;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v17.leanback.app.BackgroundManager;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -37,12 +33,6 @@ import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 
 public class MainFragment extends BrowseFragment {
     private static final String TAG = "MainFragment";
@@ -123,27 +113,16 @@ public class MainFragment extends BrowseFragment {
         @Override
         public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item,
                                   RowPresenter.ViewHolder rowViewHolder, Row row) {
+            Movie movie = (Movie) item;
+            Log.d(TAG, "Item: " + item.toString());
+            Intent intent = new Intent(getActivity(), DetailsActivity.class);
+            intent.putExtra(DetailsActivity.MOVIE, movie);
 
-            if (item instanceof Movie) {
-                Movie movie = (Movie) item;
-                Log.d(TAG, "Item: " + item.toString());
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                intent.putExtra(DetailsActivity.MOVIE, movie);
-
-                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        getActivity(),
-                        ((ImageCardView) itemViewHolder.view).getMainImageView(),
-                        DetailsActivity.SHARED_ELEMENT_NAME).toBundle();
-                getActivity().startActivity(intent, bundle);
-            } else if (item instanceof String) {
-                if (((String) item).indexOf(getString(R.string.error_fragment)) >= 0) {
-                    Intent intent = new Intent(getActivity(), BrowseErrorActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getActivity(), ((String) item), Toast.LENGTH_SHORT)
-                            .show();
-                }
-            }
+            Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    getActivity(),
+                    ((ImageCardView) itemViewHolder.view).getMainImageView(),
+                    DetailsActivity.SHARED_ELEMENT_NAME).toBundle();
+            getActivity().startActivity(intent, bundle);
         }
     }
 }

@@ -92,13 +92,13 @@ public class MainFragment extends BrowseFragment {
                                   RowPresenter.ViewHolder rowViewHolder, Row row) {
             Movie movie = (Movie) item;
             Log.d(TAG, "Item: " + item.toString());
-            Intent intent = new Intent(getActivity(), DetailsActivity.class);
-            intent.putExtra(DetailsActivity.MOVIE, movie);
+            Intent intent = new Intent(getActivity(), DetailActivity.class);
+            intent.putExtra(DetailActivity.MOVIE, movie);
 
             Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     getActivity(),
                     ((ImageCardView) itemViewHolder.view).getMainImageView(),
-                    DetailsActivity.SHARED_ELEMENT_NAME).toBundle();
+                    DetailActivity.SHARED_ELEMENT_NAME).toBundle();
             getActivity().startActivity(intent, bundle);
         }
     }

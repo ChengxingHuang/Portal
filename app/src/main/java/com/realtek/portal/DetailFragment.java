@@ -18,7 +18,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BackgroundManager;
-import android.support.v17.leanback.app.DetailsFragment;
 import android.support.v17.leanback.widget.Action;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.ClassPresenterSelector;
@@ -50,8 +49,8 @@ import java.util.List;
  * LeanbackDetailsFragment extends DetailsFragment, a Wrapper fragment for leanback details screens.
  * It shows a detailed view of video and its meta plus related videos.
  */
-public class VideoDetailsFragment extends DetailsFragment {
-    private static final String TAG = "VideoDetailsFragment";
+public class DetailFragment extends android.support.v17.leanback.app.DetailsFragment {
+    private static final String TAG = "DetailFragment";
 
     private static final int ACTION_WATCH_TRAILER = 1;
     private static final int ACTION_RENT = 2;
@@ -73,13 +72,13 @@ public class VideoDetailsFragment extends DetailsFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate DetailsFragment");
+        Log.d(TAG, "onCreate DetailFragment");
         super.onCreate(savedInstanceState);
 
         prepareBackgroundManager();
 
         mSelectedMovie = (Movie) getActivity().getIntent()
-                .getSerializableExtra(DetailsActivity.MOVIE);
+                .getSerializableExtra(DetailActivity.MOVIE);
         if (mSelectedMovie != null) {
             setupAdapter();
             setupDetailsOverviewRow();
@@ -164,7 +163,7 @@ public class VideoDetailsFragment extends DetailsFragment {
 
         // Hook up transition element.
         detailsPresenter.setSharedElementEnterTransition(getActivity(),
-                DetailsActivity.SHARED_ELEMENT_NAME);
+                DetailActivity.SHARED_ELEMENT_NAME);
 
         detailsPresenter.setOnActionClickedListener(new OnActionClickedListener() {
             @Override
@@ -201,7 +200,7 @@ public class VideoDetailsFragment extends DetailsFragment {
             if (item instanceof Movie) {
                 Movie movie = (Movie) item;
                 Log.d(TAG, "Item: " + item.toString());
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
                 intent.putExtra(getResources().getString(R.string.movie), mSelectedMovie);
                 intent.putExtra(getResources().getString(R.string.should_start), true);
                 startActivity(intent);
@@ -209,7 +208,7 @@ public class VideoDetailsFragment extends DetailsFragment {
                 Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         getActivity(),
                         ((ImageCardView) itemViewHolder.view).getMainImageView(),
-                        DetailsActivity.SHARED_ELEMENT_NAME).toBundle();
+                        DetailActivity.SHARED_ELEMENT_NAME).toBundle();
                 getActivity().startActivity(intent, bundle);
             }
         }

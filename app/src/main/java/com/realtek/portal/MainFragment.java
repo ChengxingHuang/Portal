@@ -33,8 +33,8 @@ import android.widget.Toast;
 public class MainFragment extends BrowseFragment {
     private static final String TAG = "MainFragment";
 
-    // TODO: 2018/4/13 Rows and cols should get from Sony BIVL, 4 and 8 is only for test
-    private static final int NUM_ROWS = 4;
+    // TODO: 2018/4/13 Rows and cols should get from Sony BIVL, 3 and 8 is only for test
+    private static final int NUM_ROWS = 3;
     private static final int NUM_COLS = 8;
 
     private ArrayObjectAdapter mRowsAdapter;
@@ -50,7 +50,7 @@ public class MainFragment extends BrowseFragment {
     }
 
     private void loadRows() {
-        List<Movie> list = MovieList.setupMovies();
+        List<SonyApp> list = SonyAppList.getSonyAppList(getActivity());
 
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         CardPresenter cardPresenter = new CardPresenter();
@@ -63,7 +63,7 @@ public class MainFragment extends BrowseFragment {
             for (int j = 0; j < NUM_COLS; j++) {
                 listRowAdapter.add(list.get(j % 5));
             }
-            HeaderItem header = new HeaderItem(i, MovieList.MOVIE_CATEGORY[i]);
+            HeaderItem header = new HeaderItem(i, SonyAppList.getAppCategoryString(getActivity(), i));
             mRowsAdapter.add(new ListRow(header, listRowAdapter));
         }
 
@@ -89,7 +89,7 @@ public class MainFragment extends BrowseFragment {
         public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item,
                                   RowPresenter.ViewHolder rowViewHolder, Row row) {
             Log.d(TAG, "Item: " + item.toString());
-            Toast.makeText(getActivity(), "Click Item = " + ((Movie)item).getId(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Click Item = " + ((SonyApp)item).getId(), Toast.LENGTH_SHORT).show();
         }
     }
 }

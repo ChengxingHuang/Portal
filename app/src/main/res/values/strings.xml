@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Portal</string>
     <string name="browse_title">Sony Select</string>
+    <string name="top_featured">Top Featured</string>
+    <string name="more_apps">More apps</string>
+    <string name="promotion">Promotion</string>
 </resources>

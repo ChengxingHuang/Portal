@@ -62,6 +62,7 @@ public class MainFragment extends BrowseFragment {
 
     private void initData(){
         String region = Locale.getDefault().getLanguage() + "_" + Locale.getDefault().getCountry();
+        Log.d(TAG, "region = " + region);
         switch (region){
             case "zh_CN":
                 mTopFeaturedApps = SonyUtils.AreaChina.TOP_FEATURED_APPS;
@@ -184,25 +185,23 @@ public class MainFragment extends BrowseFragment {
         });
     }
 
-    // TODO: 2018/4/18 if you have better way to handler this,fix me please
+    // TODO: 2018/4/18 If you have better way to handler this,fix me please
     private boolean initAppList(String packageName, String className,
                                 String title, Drawable icon, int category,
                                 String[][] apps, List<SonyApp> list){
         for(int p = 0; p < apps.length; p++) {
-            for(int c = 0; c < apps[0].length; c++) {
-                if (packageName.equals(apps[p][0])
-                        && className.equals(apps[p][c])) {
-                    SonyApp sonyApp = new SonyApp();
-                    sonyApp.setTitle(title);
-                    sonyApp.setCategory(category);
-                    sonyApp.setIcon(icon);
-                    sonyApp.setPackageName(packageName);
-                    sonyApp.setClassName(className);
-                    //sonyApp.setVersion(version);
-                    //sonyApp.setBivlUrl(bivlUrl);
-                    list.add(sonyApp);
-                    return true;
-                }
+            if (packageName.equals(apps[p][0])
+                    && className.equals(apps[p][1])) {
+                SonyApp sonyApp = new SonyApp();
+                sonyApp.setTitle(title);
+                sonyApp.setCategory(category);
+                sonyApp.setIcon(icon);
+                sonyApp.setPackageName(packageName);
+                sonyApp.setClassName(className);
+                //sonyApp.setVersion(version);
+                //sonyApp.setBivlUrl(bivlUrl);
+                list.add(sonyApp);
+                return true;
             }
         }
 

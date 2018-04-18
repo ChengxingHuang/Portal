@@ -8,18 +8,16 @@ public class SonyUtils {
     static class AreaChina {
         // The package and class name of Top featured category
         public static final String[][] TOP_FEATURED_APPS = {
-                {"com.android.tv", "com.android.tv.MainActivity"},
-                {}};
+                {"com.android.tv", "com.android.tv.TvActivity"},
+                {"com.dangbeimarket", "com.dangbeimarket.activity.WelcomeActivity"},
+                {"com.cibn.tv", "com.yunos.tv.yingshi.WelcomeActivity"}};
 
         // The package and class name of More apps category
         public static final String[][] MORE_APPS = {
-                {},
-                {}};
+                {"com.rtk.mediabrowser", "com.rtk.mediabrowser.MediaBrowser"}};
 
         // The package and class name of Promotion category
-        public static final String[][] PROMOTION_APPS = {
-                {},
-                {}};
+        public static final String[][] PROMOTION_APPS = {};
     }
 
     static class AreaUSA {
@@ -35,7 +33,9 @@ public class SonyUtils {
                 {"com.android.tv", "com.android.tv.TvActivity"},
                 {"com.realtek.camera", "com.realtek.camera.MainActivity"},
                 {"com.realtek.tv.actionmenu", "com.realtek.tv.actionmenu.ActionMenuActivity"},
-                {"com.lego.android.tvleanback", "com.example.android.tvleanback.ui.MainActivity"}};
+                {"com.lego.android.tvleanback", "com.example.android.tvleanback.ui.MainActivity"},
+                {"cn.com.wasu.main", "com.wasu.cs.ui.ActivityDispatch"},
+                {"com.netflix.ninja", "com.netflix.ninja.MainActivity"}};
 
         // The package and class name of More apps category
         public static final String[][] MORE_APPS = {
@@ -50,51 +50,34 @@ public class SonyUtils {
     static class AreaUK {
         // The package and class name of Top featured category
         public static final String[][] TOP_FEATURED_APPS = {
-                {"com.android.tv", "com.android.tv.MainActivity"},
-                {}};
+                {"com.android.tv", "com.android.tv.MainActivity"}};
 
         // The package and class name of More apps category
-        public static final String[][] MORE_APPS = {
-                {},
-                {}};
+        public static final String[][] MORE_APPS = {};
 
         // The package and class name of Promotion category
-        public static final String[][] PROMOTION_APPS = {
-                {},
-                {}};
+        public static final String[][] PROMOTION_APPS = {};
     }
 
     static class AreaTW {
         // The package and class name of Top featured category
-        public static final String[][] TOP_FEATURED_APPS = {
-                {"com.android.tv", "com.android.tv.MainActivity"},
-                {}};
+        public static final String[][] TOP_FEATURED_APPS = {};
 
         // The package and class name of More apps category
-        public static final String[][] MORE_APPS = {
-                {},
-                {}};
+        public static final String[][] MORE_APPS = {};
 
         // The package and class name of Promotion category
-        public static final String[][] PROMOTION_APPS = {
-                {},
-                {}};
+        public static final String[][] PROMOTION_APPS = {};
     }
 
     static class AreaOthers {
         // The package and class name of Top featured category
-        public static final String[][] TOP_FEATURED_APPS = {
-                {},
-                {}};
+        public static final String[][] TOP_FEATURED_APPS = {};
 
         // The package and class name of More apps category
-        public static final String[][] MORE_APPS = {
-                {},
-                {}};
+        public static final String[][] MORE_APPS = {};
 
         // The package and class name of Promotion category
-        public static final String[][] PROMOTION_APPS = {
-                {},
-                {}};
+        public static final String[][] PROMOTION_APPS = {};
     }
 }

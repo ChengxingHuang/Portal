@@ -14,13 +14,10 @@
 
 package com.realtek.portal;
 
-import android.graphics.drawable.Drawable;
 import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
 import android.util.Log;
 import android.view.ViewGroup;
-
-import com.bumptech.glide.Glide;
 
 /*
  * A CardPresenter is used to generate Views and bind Objects to them on demand.
@@ -72,6 +69,9 @@ public class CardPresenter extends Presenter {
         cardView.setTitleText(sonyApp.getTitle());
         //cardView.setContentText(sonyApp.getTitle());
         cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
+        cardView.setMainImage(sonyApp.getIcon());
+        cardView.setMainImageAdjustViewBounds(true);
+        //cardView.setMainImageScaleType(ImageView.ScaleType.CENTER);
     }
 
     @Override

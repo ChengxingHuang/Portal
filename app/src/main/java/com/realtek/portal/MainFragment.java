@@ -14,9 +14,14 @@
 
 package com.realtek.portal;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ResolveInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -33,16 +38,17 @@ import android.widget.Toast;
 public class MainFragment extends BrowseFragment {
     private static final String TAG = "MainFragment";
 
-    // TODO: 2018/4/13 Rows and cols should get from Sony BIVL, 3 and 8 is only for test
-    private static final int NUM_ROWS = 3;
-    private static final int NUM_COLS = 8;
-
     private ArrayObjectAdapter mRowsAdapter;
+    private Context mContext;
+
+    List<SonyApp> mTopFeaturedList = new ArrayList<>();
+    List<SonyApp> mMoreAppsList = new ArrayList<>();
+    List<SonyApp> mPromotionList = new ArrayList<>();
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        Log.i(TAG, "onCreate");
         super.onActivityCreated(savedInstanceState);
+        mContext = getActivity();
 
         setTitle(getString(R.string.browse_title));
         loadRows();
@@ -50,24 +56,173 @@ public class MainFragment extends BrowseFragment {
     }
 
     private void loadRows() {
-        List<SonyApp> list = SonyAppList.getSonyAppList(getActivity());
-
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
-        CardPresenter cardPresenter = new CardPresenter();
 
-        for (int i = 0; i < NUM_ROWS; i++) {
-            if (i != 0) {
-                Collections.shuffle(list);
-            }
-            ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(cardPresenter);
-            for (int j = 0; j < NUM_COLS; j++) {
-                listRowAdapter.add(list.get(j % 5));
-            }
-            HeaderItem header = new HeaderItem(i, SonyAppList.getAppCategoryString(getActivity(), i));
-            mRowsAdapter.add(new ListRow(header, listRowAdapter));
-        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                CardPresenter cardPresenter = new CardPresenter();
+                String region = Locale.getDefault().getLanguage() + "_" + Locale.getDefault().getCountry();
+                String topFeaturedApps[][];
+                String moreApps[][];
+                String promotionApps[][];
 
-        setAdapter(mRowsAdapter);
+                switch (region){
+                    case "zh_CN":
+                        topFeaturedApps = SonyUtils.AreaChina.TOP_FEATURED_APPS;
+                        moreApps = SonyUtils.AreaChina.MORE_APPS;
+                        promotionApps = SonyUtils.AreaChina.PROMOTION_APPS;
+                        break;
+
+                    case "zh_TW":
+                        topFeaturedApps = SonyUtils.AreaTW.TOP_FEATURED_APPS;
+                        moreApps = SonyUtils.AreaTW.MORE_APPS;
+                        promotionApps = SonyUtils.AreaTW.PROMOTION_APPS;
+                        break;
+
+                    case "en_US":
+                        topFeaturedApps = SonyUtils.AreaUSA.TOP_FEATURED_APPS;
+                        moreApps = SonyUtils.AreaUSA.MORE_APPS;
+                        promotionApps = SonyUtils.AreaUSA.PROMOTION_APPS;
+                        break;
+
+                    case "en_GB":
+                        topFeaturedApps = SonyUtils.AreaUSA.TOP_FEATURED_APPS;
+                        moreApps = SonyUtils.AreaUSA.MORE_APPS;
+                        promotionApps = SonyUtils.AreaUSA.PROMOTION_APPS;
+                        break;
+
+                    default:
+                        topFeaturedApps = SonyUtils.AreaUSA.TOP_FEATURED_APPS;
+                        moreApps = SonyUtils.AreaUSA.MORE_APPS;
+                        promotionApps = SonyUtils.AreaUSA.PROMOTION_APPS;
+                        break;
+                }
+
+                Intent intent = new Intent(Intent.ACTION_MAIN, null);
+                intent.addCategory(Intent.CATEGORY_LEANBACK_LAUNCHER);
+                List<ResolveInfo> resolveInfo = mContext.getPackageManager().queryIntentActivities(intent, 0);
+
+                for (int i = 0; i < resolveInfo.size(); i++) {
+                    ResolveInfo info = resolveInfo.get(i);
+                    String packageName = info.activityInfo.packageName;
+                    String className = info.activityInfo.name;
+                    CharSequence title = info.activityInfo.loadLabel(mContext.getPackageManager());
+                    Drawable icon = info.loadIcon(mContext.getPackageManager());
+
+                    for(int p = 0; p < topFeaturedApps.length; p++) {
+                        for(int c = 0; c < topFeaturedApps[0].length; c++) {
+                            if (packageName.equals(topFeaturedApps[p][0])
+                                    && className.equals(topFeaturedApps[p][c])) {
+                                SonyApp sonyApp = new SonyApp();
+                                sonyApp.setId(SonyApp.getCount());
+                                SonyApp.incCount();
+                                sonyApp.setTitle(title + "");
+                                Log.d(TAG, "packageName = " + packageName + ", className = " + className + ", title = " + title);
+                                sonyApp.setCategory(SonyApp.CATEGORY_TOP_FEATURED);
+                                //sonyApp.setBackgroundImage(bgImage);
+                                sonyApp.setIcon(icon);
+                                sonyApp.setPackageName(packageName);
+                                sonyApp.setClassName(className);
+                                //sonyApp.setVersion(version);
+                                //sonyApp.setBivlUrl(bivlUrl);
+                                mTopFeaturedList.add(sonyApp);
+                                break;
+                            }
+                        }
+                    }
+
+                    for(int p = 0; p < moreApps.length; p++) {
+                        for(int c = 0; c < moreApps[0].length; c++) {
+                            if (packageName.equals(moreApps[p][0])
+                                    && className.equals(moreApps[p][c])) {
+                                SonyApp sonyApp = new SonyApp();
+                                sonyApp.setId(SonyApp.getCount());
+                                SonyApp.incCount();
+                                sonyApp.setTitle(title + "");
+                                sonyApp.setCategory(SonyApp.CATEGORY_MORE_APPS);
+                                //sonyApp.setBackgroundImage(bgImage);
+                                sonyApp.setIcon(icon);
+                                sonyApp.setPackageName(packageName);
+                                sonyApp.setClassName(className);
+                                //sonyApp.setVersion(version);
+                                //sonyApp.setBivlUrl(bivlUrl);
+                                mMoreAppsList.add(sonyApp);
+                                break;
+                            }
+                        }
+                    }
+
+                    for(int p = 0; p < promotionApps.length; p++) {
+                        for(int c = 0; c < promotionApps[0].length; c++) {
+                            if (packageName.equals(promotionApps[p][0])
+                                    && className.equals(promotionApps[p][c])) {
+                                SonyApp sonyApp = new SonyApp();
+                                sonyApp.setId(SonyApp.getCount());
+                                SonyApp.incCount();
+                                sonyApp.setTitle(title + "");
+                                sonyApp.setCategory(SonyApp.CATEGORY_PROMOTION);
+                                //sonyApp.setBackgroundImage(bgImage);
+                                sonyApp.setIcon(icon);
+                                sonyApp.setPackageName(packageName);
+                                sonyApp.setClassName(className);
+                                //sonyApp.setVersion(version);
+                                //sonyApp.setBivlUrl(bivlUrl);
+                                mPromotionList.add(sonyApp);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                int numRows = 0;
+                if(mTopFeaturedList.size() > 0){
+                    numRows++;
+                }
+                if(mMoreAppsList.size() > 0){
+                    numRows++;
+                }
+                if(mPromotionList.size() > 0){
+                    numRows++;
+                }
+
+                Log.d(TAG, "topFeatured size = " + mTopFeaturedList.size() +
+                        ", moreApps size = " + mMoreAppsList.size() +
+                        ", promotion size = " + mPromotionList.size());
+
+                for (int i = 0; i < numRows; i++) {
+                    String headerName = mContext.getString(R.string.no_apps);
+                    ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(cardPresenter);
+
+                    switch (i){
+                        case 0:
+                            headerName = mContext.getString(R.string.top_featured);
+                            for (int j = 0; j < mTopFeaturedList.size(); j++) {
+                                listRowAdapter.add(mTopFeaturedList.get(j));
+                            }
+                            break;
+
+                        case 1:
+                            headerName = mContext.getString(R.string.more_apps);
+                            for (int j = 0; j < mMoreAppsList.size(); j++) {
+                                listRowAdapter.add(mMoreAppsList.get(j));
+                            }
+                            break;
+
+                        case 2:
+                            headerName = mContext.getString(R.string.promotion);
+                            for (int j = 0; j < mPromotionList.size(); j++) {
+                               listRowAdapter.add(mPromotionList.get(j));
+                            }
+                            break;
+                    }
+                    HeaderItem header = new HeaderItem(i, headerName);
+                    mRowsAdapter.add(new ListRow(header, listRowAdapter));
+                }
+
+                setAdapter(mRowsAdapter);
+            }
+        });
     }
 
     private void setupEventListeners() {

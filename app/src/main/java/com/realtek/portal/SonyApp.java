@@ -27,6 +27,12 @@ public class SonyApp implements Serializable {
     public static final int CATEGORY_MORE_APPS = 0x02;
     public static final int CATEGORY_PROMOTION = 0x03;
 
+    private static final int APP_CATEGORY[] = {
+            R.string.top_featured,
+            R.string.more_apps,
+            R.string.promotion,
+    };
+
     static final long serialVersionUID = 727566175075960653L;
     private static long count = 0;
     private long id;

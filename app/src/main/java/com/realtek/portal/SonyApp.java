@@ -33,13 +33,8 @@ public class SonyApp implements Serializable {
             R.string.promotion,
     };
 
-    static final long serialVersionUID = 727566175075960653L;
-    private static long count = 0;
-    private long id;
     // app title
     private String mTitle;
-    // app bg
-    private Drawable mBgImage;
     // app icon
     private Drawable mIcon;
     // app package name
@@ -56,36 +51,12 @@ public class SonyApp implements Serializable {
     public SonyApp() {
     }
 
-    public static void incCount() {
-        count++;
-    }
-
-    public static long getCount() {
-        return count;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getId() {
-        return id;
-    }
-
     public void setTitle(String title) {
         this.mTitle = title;
     }
 
     public String getTitle() {
         return mTitle;
-    }
-
-    public void setBackgroundImage(Drawable bgImage) {
-        this.mBgImage = bgImage;
-    }
-
-    public Drawable getBackgroundImage() {
-        return mBgImage;
     }
 
     public void setIcon(Drawable icon) {
@@ -144,12 +115,12 @@ public class SonyApp implements Serializable {
     @Override
     public String toString() {
         return "SonyApp{" +
-                "id=" + id +
-                ", title=" + mTitle +
+                "title=" + mTitle +
                 ", packageName=" + mPackageName +
                 ", className=" + mClassName +
+                ", category=" + mCategory +
                 ", version=" + mVersion +
                 ", mBivlUrl=" + mBivlUrl +
-                '}';
+                "}";
     }
 }

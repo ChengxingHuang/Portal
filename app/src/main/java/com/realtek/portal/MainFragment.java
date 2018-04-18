@@ -20,6 +20,7 @@ import java.util.Locale;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -33,7 +34,6 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.util.Log;
-import android.widget.Toast;
 
 public class MainFragment extends BrowseFragment {
     private static final String TAG = "MainFragment";
@@ -108,8 +108,17 @@ public class MainFragment extends BrowseFragment {
                     String packageName = info.activityInfo.packageName;
                     String className = info.activityInfo.name;
                     CharSequence title = info.activityInfo.loadLabel(mContext.getPackageManager());
-                    Drawable icon = info.loadIcon(mContext.getPackageManager());
+                    Drawable icon = null;
                     Log.d(TAG, "packageName = " + packageName + ", className = " + className + ", title = " + title);
+
+                    try {
+                        icon = mContext.getPackageManager().getApplicationBanner(packageName);
+                        if(null == icon) {
+                            icon = mContext.getPackageManager().getApplicationIcon(packageName);
+                        }
+                    }catch (PackageManager.NameNotFoundException e){
+                        Log.d(TAG, "package not found:" + packageName);
+                    }
 
                     for(int p = 0; p < topFeaturedApps.length; p++) {
                         for(int c = 0; c < topFeaturedApps[0].length; c++) {

@@ -16,8 +16,10 @@ package com.realtek.portal;
 
 import android.support.v17.leanback.widget.ImageCardView;
 import android.support.v17.leanback.widget.Presenter;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /*
  * A CardPresenter is used to generate Views and bind Objects to them on demand.
@@ -66,6 +68,10 @@ public class CardPresenter extends Presenter {
         ImageCardView cardView = (ImageCardView) viewHolder.view;
 
         Log.d(TAG, "onBindViewHolder");
+        TextView tv = (TextView) cardView.findViewById(R.id.title_text);
+        // TODO: 2018/4/18 TextView not focus should display ... 
+        tv.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        tv.setSingleLine(true);
         cardView.setTitleText(sonyApp.getTitle());
         //cardView.setContentText(sonyApp.getTitle());
         cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);

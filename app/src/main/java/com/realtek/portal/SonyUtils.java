@@ -6,29 +6,17 @@ package com.realtek.portal;
 
 public class SonyUtils {
     static class AreaChina {
-        // download apk, youku and iqiyi for test
-        public static final String[] BIVL_LINKS = {
-                "http://tds.ott.cp31.ott.cibntv.net/download/cibn/5.11.1.1/37b58c9baaa64d755d61a1240be63821.apk",
-                "http://app.iqiyi.com/tv/apk/qiyiguoofficial-tv8.3.1.73384.apk"
-        };
-
-        /*
-         * The package and class name of Top featured category
-         */
+        // The package and class name of Top featured category
         public static final String[][] TOP_FEATURED_APPS = {
                 {"com.android.tv", "com.android.tv.MainActivity"},
                 {}};
 
-        /*
-         * The package and class name of More apps category
-         */
+        // The package and class name of More apps category
         public static final String[][] MORE_APPS = {
                 {},
                 {}};
 
-        /*
-         * The package and class name of Promotion category
-         */
+        // The package and class name of Promotion category
         public static final String[][] PROMOTION_APPS = {
                 {},
                 {}};
@@ -41,83 +29,70 @@ public class SonyUtils {
                 "http://app.iqiyi.com/tv/apk/qiyiguoofficial-tv8.3.1.73384.apk"
         };
 
-        /*
-         * The package and class name of Top featured category
-         */
+        // The package and class name of Top featured category
         public static final String[][] TOP_FEATURED_APPS = {
                 {"com.google.android.youtube.tv", "com.google.android.apps.youtube.tv.activity.TvGuideActivity"},
                 {"com.android.tv", "com.android.tv.TvActivity"},
                 {"com.realtek.camera", "com.realtek.camera.MainActivity"},
                 {"com.realtek.tv.actionmenu", "com.realtek.tv.actionmenu.ActionMenuActivity"},
-                {"com.realtek.portal", "com.realtek.portal.MainActivity"}};
+                {"com.lego.android.tvleanback", "com.example.android.tvleanback.ui.MainActivity"}};
 
-        /*
-         * The package and class name of More apps category
-         */
+        // The package and class name of More apps category
         public static final String[][] MORE_APPS = {
                 {"com.realtek.tv.settings", "com.realtek.tv.settings.MainSettings"},
                 {"com.rtk.android.miracast", "com.rtk.android.miracast.MiracastActivity"}};
 
-        /*
-         * The package and class name of Promotion category
-         */
+        // The package and class name of Promotion category
         public static final String[][] PROMOTION_APPS = {
                 {"com.rtk.mediabrowser", "com.rtk.mediabrowser.MediaBrowser"}};
     }
 
     static class AreaUK {
-        // download apk, youku and iqiyi for test
-        public static final String[] BIVL_LINKS = {
-                "http://tds.ott.cp31.ott.cibntv.net/download/cibn/5.11.1.1/37b58c9baaa64d755d61a1240be63821.apk",
-                "http://app.iqiyi.com/tv/apk/qiyiguoofficial-tv8.3.1.73384.apk"
-        };
-
-        /*
-         * The package and class name of Top featured category
-         */
+        // The package and class name of Top featured category
         public static final String[][] TOP_FEATURED_APPS = {
                 {"com.android.tv", "com.android.tv.MainActivity"},
                 {}};
 
-        /*
-         * The package and class name of More apps category
-         */
+        // The package and class name of More apps category
         public static final String[][] MORE_APPS = {
                 {},
                 {}};
 
-        /*
-         * The package and class name of Promotion category
-         */
+        // The package and class name of Promotion category
         public static final String[][] PROMOTION_APPS = {
                 {},
                 {}};
     }
 
     static class AreaTW {
-        // download apk, youku and iqiyi for test
-        public static final String[] BIVL_LINKS = {
-                "http://tds.ott.cp31.ott.cibntv.net/download/cibn/5.11.1.1/37b58c9baaa64d755d61a1240be63821.apk",
-                "http://app.iqiyi.com/tv/apk/qiyiguoofficial-tv8.3.1.73384.apk"
-        };
-
-        /*
-         * The package and class name of Top featured category
-         */
+        // The package and class name of Top featured category
         public static final String[][] TOP_FEATURED_APPS = {
                 {"com.android.tv", "com.android.tv.MainActivity"},
                 {}};
 
-        /*
-         * The package and class name of More apps category
-         */
+        // The package and class name of More apps category
         public static final String[][] MORE_APPS = {
                 {},
                 {}};
 
-        /*
-         * The package and class name of Promotion category
-         */
+        // The package and class name of Promotion category
+        public static final String[][] PROMOTION_APPS = {
+                {},
+                {}};
+    }
+
+    static class AreaOthers {
+        // The package and class name of Top featured category
+        public static final String[][] TOP_FEATURED_APPS = {
+                {},
+                {}};
+
+        // The package and class name of More apps category
+        public static final String[][] MORE_APPS = {
+                {},
+                {}};
+
+        // The package and class name of Promotion category
         public static final String[][] PROMOTION_APPS = {
                 {},
                 {}};

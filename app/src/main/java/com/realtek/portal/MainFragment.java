@@ -87,15 +87,15 @@ public class MainFragment extends BrowseFragment {
                         break;
 
                     case "en_GB":
-                        topFeaturedApps = SonyUtils.AreaUSA.TOP_FEATURED_APPS;
-                        moreApps = SonyUtils.AreaUSA.MORE_APPS;
-                        promotionApps = SonyUtils.AreaUSA.PROMOTION_APPS;
+                        topFeaturedApps = SonyUtils.AreaUK.TOP_FEATURED_APPS;
+                        moreApps = SonyUtils.AreaUK.MORE_APPS;
+                        promotionApps = SonyUtils.AreaUK.PROMOTION_APPS;
                         break;
 
                     default:
-                        topFeaturedApps = SonyUtils.AreaUSA.TOP_FEATURED_APPS;
-                        moreApps = SonyUtils.AreaUSA.MORE_APPS;
-                        promotionApps = SonyUtils.AreaUSA.PROMOTION_APPS;
+                        topFeaturedApps = SonyUtils.AreaOthers.TOP_FEATURED_APPS;
+                        moreApps = SonyUtils.AreaOthers.MORE_APPS;
+                        promotionApps = SonyUtils.AreaOthers.PROMOTION_APPS;
                         break;
                 }
 
@@ -109,6 +109,7 @@ public class MainFragment extends BrowseFragment {
                     String className = info.activityInfo.name;
                     CharSequence title = info.activityInfo.loadLabel(mContext.getPackageManager());
                     Drawable icon = info.loadIcon(mContext.getPackageManager());
+                    Log.d(TAG, "packageName = " + packageName + ", className = " + className + ", title = " + title);
 
                     for(int p = 0; p < topFeaturedApps.length; p++) {
                         for(int c = 0; c < topFeaturedApps[0].length; c++) {
@@ -118,9 +119,7 @@ public class MainFragment extends BrowseFragment {
                                 sonyApp.setId(SonyApp.getCount());
                                 SonyApp.incCount();
                                 sonyApp.setTitle(title + "");
-                                Log.d(TAG, "packageName = " + packageName + ", className = " + className + ", title = " + title);
                                 sonyApp.setCategory(SonyApp.CATEGORY_TOP_FEATURED);
-                                //sonyApp.setBackgroundImage(bgImage);
                                 sonyApp.setIcon(icon);
                                 sonyApp.setPackageName(packageName);
                                 sonyApp.setClassName(className);
@@ -141,7 +140,6 @@ public class MainFragment extends BrowseFragment {
                                 SonyApp.incCount();
                                 sonyApp.setTitle(title + "");
                                 sonyApp.setCategory(SonyApp.CATEGORY_MORE_APPS);
-                                //sonyApp.setBackgroundImage(bgImage);
                                 sonyApp.setIcon(icon);
                                 sonyApp.setPackageName(packageName);
                                 sonyApp.setClassName(className);
@@ -162,7 +160,6 @@ public class MainFragment extends BrowseFragment {
                                 SonyApp.incCount();
                                 sonyApp.setTitle(title + "");
                                 sonyApp.setCategory(SonyApp.CATEGORY_PROMOTION);
-                                //sonyApp.setBackgroundImage(bgImage);
                                 sonyApp.setIcon(icon);
                                 sonyApp.setPackageName(packageName);
                                 sonyApp.setClassName(className);
@@ -190,34 +187,39 @@ public class MainFragment extends BrowseFragment {
                         ", moreApps size = " + mMoreAppsList.size() +
                         ", promotion size = " + mPromotionList.size());
 
-                for (int i = 0; i < numRows; i++) {
-                    String headerName = mContext.getString(R.string.no_apps);
-                    ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(cardPresenter);
+                String headerName = mContext.getString(R.string.no_apps);
+                if(numRows > 0) {
+                    for (int i = 0; i < numRows; i++) {
+                        ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(cardPresenter);
 
-                    switch (i){
-                        case 0:
-                            headerName = mContext.getString(R.string.top_featured);
-                            for (int j = 0; j < mTopFeaturedList.size(); j++) {
-                                listRowAdapter.add(mTopFeaturedList.get(j));
-                            }
-                            break;
+                        switch (i) {
+                            case 0:
+                                headerName = mContext.getString(R.string.top_featured);
+                                for (int j = 0; j < mTopFeaturedList.size(); j++) {
+                                    listRowAdapter.add(mTopFeaturedList.get(j));
+                                }
+                                break;
 
-                        case 1:
-                            headerName = mContext.getString(R.string.more_apps);
-                            for (int j = 0; j < mMoreAppsList.size(); j++) {
-                                listRowAdapter.add(mMoreAppsList.get(j));
-                            }
-                            break;
+                            case 1:
+                                headerName = mContext.getString(R.string.more_apps);
+                                for (int j = 0; j < mMoreAppsList.size(); j++) {
+                                    listRowAdapter.add(mMoreAppsList.get(j));
+                                }
+                                break;
 
-                        case 2:
-                            headerName = mContext.getString(R.string.promotion);
-                            for (int j = 0; j < mPromotionList.size(); j++) {
-                               listRowAdapter.add(mPromotionList.get(j));
-                            }
-                            break;
+                            case 2:
+                                headerName = mContext.getString(R.string.promotion);
+                                for (int j = 0; j < mPromotionList.size(); j++) {
+                                    listRowAdapter.add(mPromotionList.get(j));
+                                }
+                                break;
+                        }
+                        HeaderItem header = new HeaderItem(i, headerName);
+                        mRowsAdapter.add(new ListRow(header, listRowAdapter));
                     }
-                    HeaderItem header = new HeaderItem(i, headerName);
-                    mRowsAdapter.add(new ListRow(header, listRowAdapter));
+                }else{
+                    HeaderItem header = new HeaderItem(0, headerName);
+                    mRowsAdapter.add(new ListRow(header, new ArrayObjectAdapter(cardPresenter)));
                 }
 
                 setAdapter(mRowsAdapter);
@@ -243,8 +245,10 @@ public class MainFragment extends BrowseFragment {
         @Override
         public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item,
                                   RowPresenter.ViewHolder rowViewHolder, Row row) {
-            Log.d(TAG, "Item: " + item.toString());
-            Toast.makeText(getActivity(), "Click Item = " + ((SonyApp)item).getId(), Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Click Item: " + item.toString());
+            Intent intent = new Intent();
+            intent.setClassName(((SonyApp)item).getPackageName(), ((SonyApp)item).getClassName());
+            startActivity(intent);
         }
     }
 }

@@ -27,54 +27,6 @@ public class SonyApp implements Serializable {
     public static final int CATEGORY_MORE_APPS = 0x02;
     public static final int CATEGORY_PROMOTION = 0x03;
 
-    public static final int[] CATEGORY_CHINA_TOP_FEATURED = {
-            R.drawable.danbei,
-            R.drawable.wasu,
-            R.drawable.youku
-    };
-
-    public static final int[] CATEGORY_CHINA_TOP_FEATURED_TITLE = {
-            R.string.danbei,
-            R.string.wasu,
-            R.string.youku
-    };
-
-    public static final int[] CATEGORY_OTHERS_TOP_FEATURED = {
-            R.drawable.google,
-            R.drawable.google_movies,
-            R.drawable.google_music,
-            R.drawable.google_photo,
-            R.drawable.google_play,
-    };
-
-    public static final int[] CATEGORY_OTHERS_TOP_FEATURED_TITLE = {
-            R.string.google,
-            R.string.google_movies,
-            R.string.google_music,
-            R.string.google_photo,
-            R.string.google_play,
-    };
-
-    public static final int[] CATEGORY_OTHERS_MORE = {
-            R.drawable.wasu,
-            R.drawable.netflix,
-            R.drawable.youtube
-    };
-
-    public static final int[] CATEGORY_OTHERS_MORE_TITLE = {
-            R.string.wasu,
-            R.string.netflix,
-            R.string.youtube
-    };
-
-    public static final int[] CATEGORY_OTHERS_PROMOTION = {
-            R.drawable.facebook
-    };
-
-    public static final int[] CATEGORY_OTHERS_PROMOTION_TITLE = {
-            R.string.facebook
-    };
-
     // app title
     private String mTitle;
     // app icon

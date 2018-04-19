@@ -54,82 +54,10 @@ public class MainFragment extends BrowseFragment {
         super.onActivityCreated(savedInstanceState);
         mContext = getActivity();
 
-        setTitle(getString(R.string.browse_title));
-        //Only For test
-        testInitData();
-
-        //This is real
-//        initData();
-//        loadRows();
-//        setupEventListeners();
-    }
-
-    private void testInitData(){
-        mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
-        CardPresenter cardPresenter = new CardPresenter();
-        String region = Locale.getDefault().getLanguage() + "_" + Locale.getDefault().getCountry();
-        Log.d(TAG, "region = " + region);
-
-        if("zh_CN".equals(region)) {
-            ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(cardPresenter);
-            HeaderItem header = new HeaderItem(0, mContext.getString(R.string.top_featured));
-
-            for(int i = 0; i < SonyApp.CATEGORY_CHINA_TOP_FEATURED.length; i++){
-                SonyApp app = new SonyApp();
-                app.setCategory(SonyApp.CATEGORY_TOP_FEATURED);
-                app.setIcon(mContext.getDrawable(SonyApp.CATEGORY_CHINA_TOP_FEATURED[i]));
-                app.setTitle(mContext.getString(SonyApp.CATEGORY_CHINA_TOP_FEATURED_TITLE[i]));
-                listRowAdapter.add(app);
-            }
-
-            mRowsAdapter.add(new ListRow(header, listRowAdapter));
-        }else{
-            ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(cardPresenter);
-            HeaderItem header = new HeaderItem(0, mContext.getString(R.string.top_featured));
-            for(int i = 0; i < SonyApp.CATEGORY_OTHERS_TOP_FEATURED.length; i++){
-                SonyApp app = new SonyApp();
-                app.setCategory(SonyApp.CATEGORY_TOP_FEATURED);
-                app.setIcon(mContext.getDrawable(SonyApp.CATEGORY_OTHERS_TOP_FEATURED[i]));
-                app.setTitle(mContext.getString(SonyApp.CATEGORY_OTHERS_TOP_FEATURED_TITLE[i]));
-                listRowAdapter.add(app);
-            }
-            mRowsAdapter.add(new ListRow(header, listRowAdapter));
-
-            listRowAdapter = new ArrayObjectAdapter(cardPresenter);
-            header = new HeaderItem(0, mContext.getString(R.string.more_apps));
-            for(int i = 0; i < SonyApp.CATEGORY_OTHERS_MORE.length; i++){
-                SonyApp app = new SonyApp();
-                app.setCategory(SonyApp.CATEGORY_MORE_APPS);
-                app.setIcon(mContext.getDrawable(SonyApp.CATEGORY_OTHERS_MORE[i]));
-                app.setTitle(mContext.getString(SonyApp.CATEGORY_OTHERS_MORE_TITLE[i]));
-                listRowAdapter.add(app);
-            }
-            mRowsAdapter.add(new ListRow(header, listRowAdapter));
-
-            listRowAdapter = new ArrayObjectAdapter(cardPresenter);
-            header = new HeaderItem(0, mContext.getString(R.string.promotion));
-            for(int i = 0; i < SonyApp.CATEGORY_OTHERS_PROMOTION.length; i++){
-                SonyApp app = new SonyApp();
-                app.setCategory(SonyApp.CATEGORY_PROMOTION);
-                app.setIcon(mContext.getDrawable(SonyApp.CATEGORY_OTHERS_PROMOTION[i]));
-                app.setTitle(mContext.getString(SonyApp.CATEGORY_OTHERS_PROMOTION_TITLE[i]));
-                listRowAdapter.add(app);
-            }
-            mRowsAdapter.add(new ListRow(header, listRowAdapter));
-        }
-
-        setAdapter(mRowsAdapter);
-    }
-
-    private final class ItemViewTestClickedListener implements OnItemViewClickedListener {
-        @Override
-        public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item,
-                                  RowPresenter.ViewHolder rowViewHolder, Row row) {
-            Log.d(TAG, "Click Item: " + item.toString());
-            Intent intent = new Intent();
-            intent.setClassName(((SonyApp)item).getPackageName(), ((SonyApp)item).getClassName());
-            startActivity(intent);
-        }
+        setTitle(getString(R.string.app_name));
+        initData();
+        loadRows();
+        setupEventListeners();
     }
 
     private void initData(){

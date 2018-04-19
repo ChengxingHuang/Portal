@@ -31,8 +31,8 @@ public class SonyUtils {
         public static final String[][] TOP_FEATURED_APPS = {
                 {"com.google.android.youtube.tv", "com.google.android.apps.youtube.tv.activity.TvGuideActivity"},
                 {"com.android.tv", "com.android.tv.TvActivity"},
-                {"com.realtek.camera", "com.realtek.camera.MainActivity"},
-                {"com.realtek.tv.actionmenu", "com.realtek.tv.actionmenu.ActionMenuActivity"},
+                {"com.dangbeimarket", "com.dangbeimarket.activity.WelcomeActivity"},
+                {"com.cibn.tv", "com.yunos.tv.yingshi.WelcomeActivity"},
                 {"com.lego.android.tvleanback", "com.example.android.tvleanback.ui.MainActivity"},
                 {"cn.com.wasu.main", "com.wasu.cs.ui.ActivityDispatch"},
                 {"com.netflix.ninja", "com.netflix.ninja.MainActivity"}};

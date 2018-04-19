@@ -28,8 +28,11 @@ import android.widget.TextView;
 public class CardPresenter extends Presenter {
     private static final String TAG = "CardPresenter";
 
-    private static final int CARD_WIDTH = 313;
-    private static final int CARD_HEIGHT = 176;
+    private static final int CARD_WIDTH = 320;
+    private static final int CARD_HEIGHT = 180;
+    private static final int CARD_MORE_APPS_WIDTH = 285;
+    private static final int CARD_MORE_APPS_HEIGHT = 160;
+
     private static int sSelectedBackgroundColor;
     private static int sDefaultBackgroundColor;
 
@@ -74,7 +77,11 @@ public class CardPresenter extends Presenter {
         tv.setSingleLine(true);
         cardView.setTitleText(sonyApp.getTitle());
         //cardView.setContentText(sonyApp.getTitle());
-        cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
+        if(SonyApp.CATEGORY_MORE_APPS == sonyApp.getCategory()){
+            cardView.setMainImageDimensions(CARD_MORE_APPS_WIDTH, CARD_MORE_APPS_HEIGHT);
+        }else {
+            cardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
+        }
         cardView.setMainImage(sonyApp.getIcon());
         cardView.setMainImageAdjustViewBounds(true);
         //cardView.setMainImageScaleType(ImageView.ScaleType.CENTER);
